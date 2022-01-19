@@ -1,7 +1,5 @@
 #include <bits/stdc++.h>
 
-std::mt19937 rnd(std::chrono::high_resolution_clock::now().time_since_epoch().count());
-
 namespace BMP {
 
     unsigned char transformToDecimal(const char *hex) {
@@ -249,13 +247,3 @@ namespace BMP {
     };
 }
 
-using namespace BMP;
-
-int main() {
-    //ignore main
-    std::string s = "matinf_photo.bmp", s1 = "amoga.bmp", s2 = "1.bmp", c = "FFFFFF";
-    ImageBMP amoga(s);
-    amoga.save(s1);
-    ImageBMP sus(s2, 40, 40, c);
-    return 0;
-}
