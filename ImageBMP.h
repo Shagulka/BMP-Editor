@@ -24,7 +24,7 @@ namespace BMP {
 
             Pixel() = default;
 
-            Pixel(int _red, int _green, int _blue) : red(_red), green(_green), blue(_blue) {}
+            Pixel(unsigned char _red, unsigned char _green, unsigned char _blue) : red(_red), green(_green), blue(_blue) {}
         };
 
     public:
@@ -63,6 +63,11 @@ namespace BMP {
             }
         }
 
+        ~ImageBMP(){
+            fileName = "";
+            rawPixelData.clear();
+        }
+
         [[nodiscard]] std::string getFileName() const {
             return fileName;
         }
@@ -86,7 +91,7 @@ namespace BMP {
         }
 
         static Pixel makeGrey(Pixel thisPixel) {
-            unsigned int R = thisPixel.red, B = thisPixel.blue, G = thisPixel.green;
+            unsigned char R = thisPixel.red, B = thisPixel.blue, G = thisPixel.green;
             thisPixel.red = (R + B + G) / 3;
             thisPixel.blue = (R + B + G) / 3;
             thisPixel.green = (R + B + G) / 3;
@@ -184,25 +189,25 @@ namespace BMP {
             }
         }
 
-        void disableChannel(RGB channel) {
+        void setChannel(RGB channel, unsigned char value) {
             for (int i = 0; i < widthAndHeight.second; ++i) {
                 for (int j = 0; j < widthAndHeight.first; ++j) {
                     switch (channel) {
                         case RGB::RED:
-                            rawPixelData[i][j].blue = 0;
+                            rawPixelData[i][j].blue = value;
                             break;
                         case RGB::GREEN:
-                            rawPixelData[i][j].green = 0;
+                            rawPixelData[i][j].green = value;
                             break;
                         case RGB::BLUE:
-                            rawPixelData[i][j].red = 0;
+                            rawPixelData[i][j].red = value;
                             break;
                     }
                 }
             }
         }
 
-        void toGreyScale() {
+        void toGreyScale() noexcept(true){
             for (int i = 0; i < widthAndHeight.second; ++i) {
                 for (int j = 0; j < widthAndHeight.first; ++j) {
                     rawPixelData[i][j] = makeGrey(rawPixelData[i][j]);
@@ -210,7 +215,7 @@ namespace BMP {
             }
         }
 
-        void flipHorizontal() {
+        void flipHorizontal() noexcept(true){
             for (int i = 0; i < widthAndHeight.second; ++i) {
                 for (int j = 0; j < widthAndHeight.first / 2; ++j) {
                     std::swap(rawPixelData[i][j], rawPixelData[i][widthAndHeight.first - j - 1]);
@@ -218,7 +223,7 @@ namespace BMP {
             }
         }
 
-        void flipVertical() {
+        void flipVertical() noexcept(true){
             for (int i = 0; i < widthAndHeight.second / 2; ++i) {
                 for (int j = 0; j < widthAndHeight.first; ++j) {
                     std::swap(rawPixelData[i][j], rawPixelData[widthAndHeight.second - i - 1][j]);
@@ -246,4 +251,3 @@ namespace BMP {
         }
     };
 }
-
