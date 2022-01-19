@@ -1,14 +1,11 @@
 #include <assert.h>
-#include <node_api.h>
 #include <bits/stdc++.h>
+#include <node_api.h>
+
 #include "../ImageBMP.h"
 
 static napi_value Method(napi_env env, napi_callback_info info) {
-
-
-
-
-    napi_status status;
+  napi_status status;
 
   size_t argc = 2;
   napi_value args[2];
@@ -31,14 +28,8 @@ static napi_value Method(napi_env env, napi_callback_info info) {
   status = napi_get_value_int32(env, args[1], &value1);
   assert(status == napi_ok);
 
-
-
-
-
-
-
-    std::string x = "123.bmp";
-    std::string col = "FFFF00";
+  std::string x = "123.bmp";
+  std::string col = "FFFF00";
 
   BMP::ImageBMP a(x, value1, value0, col);
   a.save();
