@@ -39,13 +39,25 @@ static napi_value Method(napi_env env, napi_callback_info info) {
   return world;
 }
 
+static napi_value toGray(napi_env env, napi_callback_info info) {
+  napi_status status;
+  std::string x = "image.bmp";
+  BMP::ImageBMP a(x);
+  a.toGreyScale();
+  a.save();
+  napi_value world;
+  return world;
+}
+
 #define DECLARE_NAPI_METHOD(name, func) \
   { name, 0, func, 0, 0, 0, napi_default, 0 }
 
 static napi_value Init(napi_env env, napi_value exports) {
   napi_status status;
-  napi_property_descriptor desc = DECLARE_NAPI_METHOD("hello", Method);
-  status = napi_define_properties(env, exports, 1, &desc);
+  napi_property_descriptor desc1 = DECLARE_NAPI_METHOD("hello", Method);
+  status = napi_define_properties(env, exports, 1, &desc1);
+  napi_property_descriptor desc2 = DECLARE_NAPI_METHOD("toGray", toGray);
+  status = napi_define_properties(env, exports, 1, &desc2);
   assert(status == napi_ok);
   return exports;
 }

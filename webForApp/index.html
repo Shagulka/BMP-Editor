@@ -5,6 +5,8 @@
 </head>
 
 <body id="needid">
+    <script src="../middle-api/index.js">
+    </script>
     <div>
         <a><button>
                 Загрузить файл
@@ -18,10 +20,10 @@
         </a>
     </div>
     <div id="uploaded">
-        А здесь будет картинка
+        <img src="../middle-api/image.bmp" width="100" height="100" />
     </div>
     <div class="btn-group">
-        <button>функция 1</button>
+        <button onclick='toGrayScale()'>функция 1</button>
         <button>функция 2</button>
         <button>функция 3</button>
         <button>функция 4</button>

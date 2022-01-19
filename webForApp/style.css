@@ -17,8 +17,8 @@ button {
     margin: 0px;
 }
 .btn-group button {
-    background-color: #4CAF50;
-    border: 1px solid green;
+    background-color: rgb(255, 0, 157);
+    border: 1px solid rgb(56, 0, 35);
     color: white;
     padding: 10px 24px;
     cursor: pointer;
@@ -30,5 +30,5 @@ button {
     border-bottom: none;
 }
 .btn-group button:hover {
-    background-color: #3e8e41;
+    background-color: rgb(129, 0, 80);
 }
