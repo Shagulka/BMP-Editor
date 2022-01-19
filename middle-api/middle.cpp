@@ -1,7 +1,7 @@
 #include <assert.h>
 #include <node_api.h>
 #include <bits/stdc++.h>
-
+#include "../ImageBMP.h"
 namespace BMP {
 
     unsigned char transformToDecimal(const char *hex) {
