@@ -28,7 +28,7 @@ static napi_value Method(napi_env env, napi_callback_info info) {
   status = napi_get_value_int32(env, args[1], &value1);
   assert(status == napi_ok);
 
-  std::string x = "123.bmp";
+  std::string x = "image.bmp";
   std::string col = "FFFF00";
 
   BMP::ImageBMP a(x, value1, value0, col);
