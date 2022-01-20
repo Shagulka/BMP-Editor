@@ -15,7 +15,9 @@
   },
   "dependencies": {
     "bindings": "^1.5.0",
-    "node-addon-api": "^4.2.0"
+    "browser-node-require": "^1.1.0",
+    "node-addon-api": "^4.2.0",
+    "requirejs": "^2.3.6"
   },
   "description": ""
 }

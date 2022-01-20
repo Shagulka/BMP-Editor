@@ -1,3 +1,3 @@
-middle-api/*.bmp
-middle-api/build
-middle-api/node_modules
+app/middle-api/*.bmp
+app/middle-api/build
+app/middle-api/node_modules
