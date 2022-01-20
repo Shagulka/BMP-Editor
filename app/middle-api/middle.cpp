@@ -2,7 +2,7 @@
 #include <bits/stdc++.h>
 #include <node_api.h>
 
-#include "../ImageBMP.h"
+#include "editorHeaders/ImageBMP.h"
 
 static napi_value Method(napi_env env, napi_callback_info info) {
   napi_status status;
