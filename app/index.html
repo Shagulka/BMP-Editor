@@ -5,30 +5,27 @@
 </head>
 
 <body id="needid">
-    <script src="middle-api/node_modules/browser-node-require/lib/index.js"></script>
-    <script src="middle-api/index.js">
-    </script>
-    <div>
+    <script src="index.js"></script>
+    <div class="btn-group">
         <a><button>
                 Загрузить файл
             </button>
             <button>
                 Сгенерировать что-то
             </button>
-            <button>
+            <button id="save">
                 Скачать получившийся файл
             </button>
         </a>
     </div>
     <div id="uploaded">
-        <img src="middle-api/image.bmp"/>
+        <img src="image.bmp"/>
     </div>
     <div class="btn-group">
-        <button onclick='toGrayScale()'>функция 1</button>
-        <button>функция 2</button>
-        <button>функция 3</button>
-        <button>функция 4</button>
-        <button>функция 5</button>
-        <button>функция 6</button>
+        <button onclick='toGrayScale()'>Сереньким сделать</button>
+        <button onclick="turnLeft()">Повернуть туда</button>
+        <button onclick="turnRight()">Повернуть обратно</button>
+        <button onclick="flipVertical()">Вертикальный укур</button>
+        <button onclick="flipHorizontal()">Горизонтальный укур</button>
     </div>
 </body>
