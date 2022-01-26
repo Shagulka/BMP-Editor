@@ -1,1 +1,3 @@
-#Lightweight BMP photo editor built with C++, nodeJS, node-api and electron
+# Lightweight BMP image editor written in c++ with nodejs/electron interface
+
+> Если вы тяночка, то напишите мне (t.me/shagulka)
