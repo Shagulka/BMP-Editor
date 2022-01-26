@@ -5,22 +5,25 @@
 </head>
 
 <body id="needid">
-    <script src="index.js"></script>
-    <div class="btn-group">
-        <a><button>
-                Загрузить файл
-            </button>
-            <button>
-                Сгенерировать что-то
-            </button>
-            <button id="save">
-                Скачать получившийся файл
-            </button>
+    
+    <div class="button">
+        <a>
+            <label class="button">
+
+                <input type="file" id="image_input" onchange="handleFiles(this.files)">
+                Загрузить
+
+
+            </label>
+
+
+            <a style="color: #fb3f00; text-decoration: none;" href="data:application/xml;charset=utf-8,your code here"
+                download="image.bmp"><button>Save</button></a>
+
         </a>
     </div>
-    <div id="uploaded">
-        <img src="image.bmp"/>
-    </div>
+    <img src="image.bmp" width="50%" height="90%" id = "">
+
     <div class="btn-group">
         <button onclick='toGrayScale()'>Сереньким сделать</button>
         <button onclick="turnLeft()">Повернуть туда</button>
