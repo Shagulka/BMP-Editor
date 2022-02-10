@@ -3,9 +3,9 @@
 
 <head>
 </head>
-
+<script>const {ipcRenderer} = require('electron')</script> 
 <body id="needid">
-    
+
     <div class="button">
         <a>
             <label class="button">
@@ -25,10 +25,10 @@
     <img src="image.bmp" width="50%" height="90%" id = "">
 
     <div class="btn-group">
-        <button onclick='toGrayScale()'>Сереньким сделать</button>
-        <button onclick="turnLeft()">Повернуть туда</button>
-        <button onclick="turnRight()">Повернуть обратно</button>
-        <button onclick="flipVertical()">Вертикальный укур</button>
-        <button onclick="flipHorizontal()">Горизонтальный укур</button>
+        <button onclick="ipcRenderer.sendSync('toGray'); location.reload()">Сереньким сделать</button>
+        <button onclick="ipcRenderer.sendSync('turnLeft'); location.reload()">Повернуть туда</button>
+        <button onclick="ipcRenderer.sendSync('turnRight'); location.reload()">Повернуть обратно</button>
+        <button onclick="ipcRenderer.sendSync('flipVertical'); location.reload()">Вертикальный укур</button>
+        <button onclick="ipcRenderer.sendSync('flipHorizontal'); location.reload()">Горизонтальный укур</button>
     </div>
 </body>

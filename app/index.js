@@ -8,41 +8,47 @@ function createWindow() {
         height: 600,
         webPreferences: {
             nodeIntegration: true,
+            enableRemoteModule: true,
             contextIsolation: false
         }
     });
     // and load the index.html of the app.
     win.loadFile("index.html");
 }
-app.on("ready", createWindow);
 
-function toGrayScale() {
-    addon = require('./build/Release/testaddon.node');
+app.whenReady().then(() => {
+    createWindow();
+})
+
+app.on('window-all-closed', () => {
+    if (process.platform != 'darwin'){
+        app.quit();
+    }
+})
+const addon = require('./build/Release/testaddon.node')
+const { ipcMain } = require("electron")
+ipcMain.on('toGray', (event) => {
     addon.toGray();
-    location.reload();
-}
+    event.returnValue = null;
+})
 
-function turnLeft() {
-    addon = require('./build/Release/testaddon.node');
+ipcMain.on('turnLeft', (event) => {
     addon.turnLeft();
-    location.reload();
-}
+    event.returnValue = null;
+})
 
-function turnRight() {
-    addon = require('./build/Release/testaddon.node');
+ipcMain.on('turnRight', (event) => {
     addon.turnRight();
-    location.reload();
-}
+    event.returnValue = null;
+})
 
-function flipVertical() {
-    addon = require('./build/Release/testaddon.node');
+ipcMain.on('flipVertical', (event) => {
     addon.flipVertical();
-    location.reload();
-}
+    event.returnValue = null;
+})
 
-function flipHorizontal() {
-    addon = require('./build/Release/testaddon.node');
+ipcMain.on('flipHorizontal', (event) => {
     addon.flipHorizontal();
-    location.reload();
-}
+    event.returnValue = null;
+})
 
