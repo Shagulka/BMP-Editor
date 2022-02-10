@@ -1,5 +1,5 @@
 {
-  "name": "test-addon",
+  "name": "testaddon",
   "version": "1.0.0",
   "main": "index.js",
   "gypfile": true,
