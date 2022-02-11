@@ -3,19 +3,10 @@
 
 <head>
 </head>
-<script>const {ipcRenderer} = require('electron')</script> 
-<body id="needid">
+<script>const { ipcRenderer } = require('electron')</script>
 
-    <div class="button">
-        <a>
-            <label class="button">
-                <button onclick="ipcRenderer.sendSync('upload'); location.reload()"></button>
-                Загрузить
-            </label>
-            <a style="color: #fb3f00; text-decoration: none;" href="image.bmp" download="image.bmp"><button>Save</button></a>
-        </a>
-    </div>
-    <img src="image.bmp" width="50%" height="90%" id = "">
+<body>
+    <img src="image.bmp" width="50%" height="90%" id="">
 
     <div class="btn-group">
         <button onclick="ipcRenderer.sendSync('toGray'); location.reload()">Сереньким сделать</button>
@@ -23,5 +14,15 @@
         <button onclick="ipcRenderer.sendSync('turnRight'); location.reload()">Повернуть обратно</button>
         <button onclick="ipcRenderer.sendSync('flipVertical'); location.reload()">Вертикальный укур</button>
         <button onclick="ipcRenderer.sendSync('flipHorizontal'); location.reload()">Горизонтальный укур</button>
+    </div>
+
+    <div class="button">
+        <a>
+            <label class="d123">
+                <button style="display: none" onclick="ipcRenderer.sendSync('upload'); location.reload()"></button>
+                Загрузить
+            </label>
+            <a href="image.bmp" download="image.bmp" ><button class="d123">Save</button></a>
+        </a>
     </div>
 </body>
