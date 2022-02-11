@@ -2,6 +2,8 @@
 #include <bits/stdc++.h>
 #include <node_api.h>
 
+#include <string>
+
 #include "editorHeaders/ImageBMP.h"
 std::string x = "image.bmp";
 BMP::ImageBMP a(x);
@@ -40,6 +42,31 @@ static napi_value generate(napi_env env, napi_callback_info info) {
   return world;
 }
 
+static napi_value prepare(napi_env env, napi_callback_info info) {
+  size_t argc = 1;
+
+  napi_value args[1];
+
+  napi_get_cb_info(env, info, &argc, args, NULL, NULL);
+  char *client_name;
+  size_t str_size;
+  napi_get_value_string_utf8(env, args[0], NULL, 0, &str_size);
+  str_size += 1;
+
+  client_name = (char *)calloc(str_size + 1, sizeof(char));
+  size_t str_size_read;
+  napi_get_value_string_utf8(env, args[0], client_name, str_size,
+                             &str_size_read);
+
+  // Print the final string
+  std::string filename = std::string(client_name);
+  BMP::ImageBMP tmp(filename);
+  tmp.save(x);
+  std::cout << filename;
+ napi_value result;
+  return result;
+}
+
 static napi_value toGray(napi_env env, napi_callback_info info) {
   napi_status status;
   a.toGreyScale();
@@ -55,7 +82,6 @@ static napi_value turnLeft(napi_env env, napi_callback_info info) {
   napi_value world;
   return world;
 }
-
 
 static napi_value turnRight(napi_env env, napi_callback_info info) {
   napi_status status;
@@ -73,7 +99,6 @@ static napi_value flipHorizontal(napi_env env, napi_callback_info info) {
   return world;
 }
 
-
 static napi_value flipVertical(napi_env env, napi_callback_info info) {
   napi_status status;
   a.flipVertical();
@@ -81,17 +106,6 @@ static napi_value flipVertical(napi_env env, napi_callback_info info) {
   napi_value world;
   return world;
 }
-
-static napi_value prepare(napi_env env, napi_callback_info info){
-  napi_status status;
-  std::string b = "placeholder.png"; //TODO add argument
-  BMP::ImageBMP tmp(b);
-  a = tmp;
-  a.save(x);
-  napi_value world;
-  return world;
-}
-
 
 #define DECLARE_NAPI_METHOD(name, func) \
   { name, 0, func, 0, 0, 0, napi_default, 0 }
@@ -106,9 +120,11 @@ static napi_value Init(napi_env env, napi_value exports) {
   status = napi_define_properties(env, exports, 1, &desc3);
   napi_property_descriptor desc4 = DECLARE_NAPI_METHOD("turnRight", turnRight);
   status = napi_define_properties(env, exports, 1, &desc4);
-  napi_property_descriptor desc5 = DECLARE_NAPI_METHOD("flipVertical", flipVertical);
+  napi_property_descriptor desc5 =
+      DECLARE_NAPI_METHOD("flipVertical", flipVertical);
   status = napi_define_properties(env, exports, 1, &desc5);
-  napi_property_descriptor desc6 = DECLARE_NAPI_METHOD("flipHorizontal", flipHorizontal);
+  napi_property_descriptor desc6 =
+      DECLARE_NAPI_METHOD("flipHorizontal", flipHorizontal);
   status = napi_define_properties(env, exports, 1, &desc6);
   napi_property_descriptor desc7 = DECLARE_NAPI_METHOD("prepare", prepare);
   status = napi_define_properties(env, exports, 1, &desc7);

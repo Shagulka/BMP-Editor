@@ -21,7 +21,7 @@ app.whenReady().then(() => {
 })
 
 app.on('window-all-closed', () => {
-    if (process.platform != 'darwin'){
+    if (process.platform != 'darwin') {
         app.quit();
     }
 })
@@ -58,7 +58,8 @@ ipcMain.on('upload', (event) => {
     dialog.showOpenDialog(BrowserWindow, {
         properties: ['openFile']
     }).then(result => {
-        if (!result.canceled){
+        if (!result.canceled) {
+            console.log(result.filePaths);
             addon.prepare(result.filePaths);
         }
         console.log(result.filePaths)

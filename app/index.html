@@ -9,7 +9,7 @@
     <div class="button">
         <a>
             <label class="button">
-                <button onclick="ipcRenderer.sendSync('upload')"></button>
+                <button onclick="ipcRenderer.sendSync('upload'); location.reload()"></button>
                 Загрузить
             </label>
             <a style="color: #fb3f00; text-decoration: none;" href="image.bmp" download="image.bmp"><button>Save</button></a>
