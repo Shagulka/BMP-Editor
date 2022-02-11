@@ -3,7 +3,8 @@
 #include <node_api.h>
 
 #include "editorHeaders/ImageBMP.h"
-
+std::string x = "image.bmp";
+BMP::ImageBMP a(x);
 static napi_value generate(napi_env env, napi_callback_info info) {
   napi_status status;
 
@@ -28,10 +29,10 @@ static napi_value generate(napi_env env, napi_callback_info info) {
   status = napi_get_value_int32(env, args[1], &value1);
   assert(status == napi_ok);
 
-  std::string x = "image.bmp";
   std::string col = "FFFF00";
-
-  BMP::ImageBMP a(x, value1, value0, col);
+  BMP::ImageBMP gen(x, value1, value0, col);
+  gen.save();
+  a = gen;
   a.save();
   napi_value world;
   status = napi_create_string_utf8(env, "world", 5, &world);
@@ -41,8 +42,6 @@ static napi_value generate(napi_env env, napi_callback_info info) {
 
 static napi_value toGray(napi_env env, napi_callback_info info) {
   napi_status status;
-  std::string x = "image.bmp";
-  BMP::ImageBMP a(x);
   a.toGreyScale();
   a.save();
   napi_value world;
@@ -51,8 +50,6 @@ static napi_value toGray(napi_env env, napi_callback_info info) {
 
 static napi_value turnLeft(napi_env env, napi_callback_info info) {
   napi_status status;
-  std::string x = "image.bmp";
-  BMP::ImageBMP a(x);
   a.turnLeft();
   a.save();
   napi_value world;
@@ -62,8 +59,6 @@ static napi_value turnLeft(napi_env env, napi_callback_info info) {
 
 static napi_value turnRight(napi_env env, napi_callback_info info) {
   napi_status status;
-  std::string x = "image.bmp";
-  BMP::ImageBMP a(x);
   a.turnRight();
   a.save();
   napi_value world;
@@ -72,8 +67,6 @@ static napi_value turnRight(napi_env env, napi_callback_info info) {
 
 static napi_value flipHorizontal(napi_env env, napi_callback_info info) {
   napi_status status;
-  std::string x = "image.bmp";
-  BMP::ImageBMP a(x);
   a.flipHorizontal();
   a.save();
   napi_value world;
@@ -83,14 +76,21 @@ static napi_value flipHorizontal(napi_env env, napi_callback_info info) {
 
 static napi_value flipVertical(napi_env env, napi_callback_info info) {
   napi_status status;
-  std::string x = "image.bmp";
-  BMP::ImageBMP a(x);
-  a.flipVertical ();
+  a.flipVertical();
   a.save();
   napi_value world;
   return world;
 }
 
+static napi_value prepare(napi_env env, napi_callback_info info){
+  napi_status status;
+  std::string b = "placeholder.png"; //TODO add argument
+  BMP::ImageBMP tmp(b);
+  a = tmp;
+  a.save(x);
+  napi_value world;
+  return world;
+}
 
 
 #define DECLARE_NAPI_METHOD(name, func) \
@@ -110,6 +110,8 @@ static napi_value Init(napi_env env, napi_value exports) {
   status = napi_define_properties(env, exports, 1, &desc5);
   napi_property_descriptor desc6 = DECLARE_NAPI_METHOD("flipHorizontal", flipHorizontal);
   status = napi_define_properties(env, exports, 1, &desc6);
+  napi_property_descriptor desc7 = DECLARE_NAPI_METHOD("prepare", prepare);
+  status = napi_define_properties(env, exports, 1, &desc7);
   assert(status == napi_ok);
   return exports;
 }

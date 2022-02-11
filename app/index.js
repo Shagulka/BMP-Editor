@@ -52,3 +52,18 @@ ipcMain.on('flipHorizontal', (event) => {
     event.returnValue = null;
 })
 
+const { dialog } = require('electron')
+
+ipcMain.on('upload', (event) => {
+    dialog.showOpenDialog(BrowserWindow, {
+        properties: ['openFile']
+    }).then(result => {
+        if (!result.canceled){
+            addon.prepare(result.filePaths);
+        }
+        console.log(result.filePaths)
+    }).catch(err => {
+        console.log(err);
+    })
+    event.returnValue = null;
+})

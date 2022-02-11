@@ -9,16 +9,10 @@
     <div class="button">
         <a>
             <label class="button">
-
-                <input type="file" id="image_input" onchange="handleFiles(this.files)">
+                <button onclick="ipcRenderer.sendSync('upload')"></button>
                 Загрузить
-
-
             </label>
-
-
             <a style="color: #fb3f00; text-decoration: none;" href="image.bmp" download="image.bmp"><button>Save</button></a>
-
         </a>
     </div>
     <img src="image.bmp" width="50%" height="90%" id = "">
