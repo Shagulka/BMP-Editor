@@ -1,3 +1,5 @@
 app/*.bmp
 app/build
 app/node_modules
+app/BMP-editor-win32-x64
+app/BMP-editor-win32-x64.zip
