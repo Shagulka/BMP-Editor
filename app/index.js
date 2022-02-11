@@ -59,10 +59,9 @@ ipcMain.on('upload', (event) => {
         properties: ['openFile']
     }).then(result => {
         if (!result.canceled) {
-            console.log(result.filePaths);
-            addon.prepare(result.filePaths);
+            addon.prepare(result.filePaths[0]);
         }
-        console.log(result.filePaths)
+        console.log(result.filePaths[0])
     }).catch(err => {
         console.log(err);
     })

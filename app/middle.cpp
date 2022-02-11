@@ -59,10 +59,12 @@ static napi_value prepare(napi_env env, napi_callback_info info) {
                              &str_size_read);
 
   // Print the final string
+  printf("%s", "ddd");
   std::string filename = std::string(client_name);
   BMP::ImageBMP tmp(filename);
-  tmp.save(x);
-  std::cout << filename;
+  a = tmp;
+  a.save(x);
+  
  napi_value result;
   return result;
 }
