@@ -16,6 +16,10 @@ label {
     font-family: Arial, Helvetica, sans-serif;
     font-size: larger;
 }
+.container {
+    display: flex;
+    justify-content: left;
+}   
 #uploaded{
     top: 0px;
 }
@@ -43,17 +47,18 @@ input[type="file"] {
     border: 2px solid #768390;
     color: white;
     cursor: pointer;
-    width: 90%;
-    display: block;
     border-radius: 8px;
-    display: table-cell; 
-    font-size: larger;
-    height: 20%;
-}
+    font-size: larger; 
+    margin: 4px;
+    transition: 0.5s ease;
+} 
 
 .btn-group{
     float: right;
-    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .btn-group button:not(:last-child) {
@@ -61,4 +66,7 @@ input[type="file"] {
 }
 .btn-group button:hover {
     background-color: #212a38;
+}
+* {
+    box-sizing: border-box;
 }

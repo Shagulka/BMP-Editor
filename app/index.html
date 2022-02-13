@@ -6,14 +6,15 @@
 <script>const { ipcRenderer } = require('electron')</script>
 
 <body>
-    <img src="image.bmp" width="50%" height="90%" id="">
-
+    <div class="container">
+        <img src="image.bmp" width="500px">
     <div class="btn-group">
         <button onclick="ipcRenderer.sendSync('toGray'); location.reload()">Сереньким сделать</button>
         <button onclick="ipcRenderer.sendSync('turnLeft'); location.reload()">Повернуть туда</button>
         <button onclick="ipcRenderer.sendSync('turnRight'); location.reload()">Повернуть обратно</button>
         <button onclick="ipcRenderer.sendSync('flipVertical'); location.reload()">Вертикальный укур</button>
         <button onclick="ipcRenderer.sendSync('flipHorizontal'); location.reload()">Горизонтальный укур</button>
+    </div>
     </div>
 
     <div class="button">
