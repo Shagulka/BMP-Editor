@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
-#include "classes/ImageBMP.h"
-#include "classes/lodepng.h"
+#include "lodepng.h"
 
 enum CHANNELS {
     RED = 0,
@@ -8,6 +7,8 @@ enum CHANNELS {
     BLUE = 2,
     ALPHA = 3
 };
+
+const unsigned int CHANNELS_COUNT = 4;
 
 /* иногда удобнее хранить пиксель просто как 4 последовательных байта в массиве
  * иногда удобнее в виде структуры
@@ -118,50 +119,45 @@ public:
         }
     }
 
-    void turnLeft() { //TODO fix
-        std::vector<std::vector<unsigned char>> temp(height, std::vector<unsigned char>(4 * width));
-        for (int i = 0; i < height; ++i) {
-            for (int j = 0; j < 4 * width; ++j) {
-                temp[i][j] = rawPixels[i * (4 * width) + j];
+    void turnRight() {
+        std::vector <unsigned char> output(rawPixels.size());
+        for (int X = 0; X < width; ++X){
+            for (int Y = 0;  Y < height; ++Y) {
+                for (int chan = 0; chan < CHANNELS_COUNT; ++chan){
+                    output[(X * height + Y) * CHANNELS_COUNT + chan] = rawPixels[((height - 1 - Y) * width + X) * CHANNELS_COUNT + chan];
+                }
             }
         }
-        int m = (int) temp.size(), n = (int) temp[0].size();
-        std::vector<std::vector<unsigned char>> tempTemp(n,
-                                                         std::vector<unsigned char>(m));
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                tempTemp[j][m - 1 - i] = temp[i][j];
-            }
-        }
-        for (int i = 0; i < (int) tempTemp[i].size(); ++i) {
-            for (int j = 0; j < (int) tempTemp.size(); ++j) {
-                rawPixels[i * 4 * width + j] = tempTemp[j][i];
-            }
-        }
+        rawPixels = output;
         std::swap(width, height);
     }
 
-    void flipVertical(){ //TODO fix
-        std::vector <Pixel> temp(width * height);
-        for (int i = 0; i < (int)rawPixels.size() / 4; i += 4){
-            temp[i] = {rawPixels[i], rawPixels[i + 1], rawPixels[i + 2], rawPixels[i + 3]};
+    void turnLeft(){
+        turnRight();
+        turnRight();
+        turnRight();
+    }
+
+    void flipVertical() {
+        std::vector<unsigned char> output(rawPixels.size());
+        unsigned short Colors = 4;
+        for (unsigned int X = 0; X < width; X++) {
+            for (unsigned int Y = 0; Y < height; Y++) {
+                for (unsigned int P = 0; P < Colors; P++) {
+                    output[(X + Y * width) * Colors + P] = rawPixels[(X + (height - 1 - Y) * width) * Colors + P];
+                }
+            }
         }
-        std::vector<Pixel> ans(width * height);
-        for (int i = (int)temp.size(); i >= 0; --i){
-            ans[temp.size() - i - 1] = temp[i];
-        }
-        rawPixels.clear();
-        for (int i = 0; i < width * height; ++i){
-            rawPixels.push_back(ans[i].R);
-            rawPixels.push_back(ans[i].G);
-            rawPixels.push_back(ans[i].B);
-            rawPixels.push_back(ans[i].A);
-        }
+        rawPixels = output;
+    }
+
+    void flipHorizontal() {
+        turnRight();
+        turnRight();
+        flipVertical();
     }
 
 };
-
-using namespace BMP;
 
 int main() {
     std::vector<unsigned char> RGBA = {190, 70, 150, 254};
