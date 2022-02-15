@@ -56,7 +56,8 @@ const { dialog } = require('electron')
 
 ipcMain.on('upload', (event) => {
     dialog.showOpenDialog(BrowserWindow, {
-        properties: ['openFile']
+        properties: ['openFile'],
+        extensions: ['bmp', 'png']
     }).then(result => {
         if (!result.canceled) {
             addon.prepare(result.filePaths[0]);
