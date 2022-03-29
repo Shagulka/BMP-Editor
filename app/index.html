@@ -1,29 +1,51 @@
 <!DOCTYPE html>
-<link rel="stylesheet" href="style.css">
 
 <head>
+    <link rel="stylesheet" href="style.css">
 </head>
-<script>const { ipcRenderer } = require('electron')</script>
 
 <body>
-    <div class="container">
-        <img src="image.bmp" width="500px">
-    <div class="btn-group">
-        <button onclick="ipcRenderer.sendSync('toGray'); location.reload()">Сереньким сделать</button>
-        <button onclick="ipcRenderer.sendSync('turnLeft'); location.reload()">Повернуть туда</button>
-        <button onclick="ipcRenderer.sendSync('turnRight'); location.reload()">Повернуть обратно</button>
-        <button onclick="ipcRenderer.sendSync('flipVertical'); location.reload()">Вертикальный укур</button>
-        <button onclick="ipcRenderer.sendSync('flipHorizontal'); location.reload()">Горизонтальный укур</button>
+    <button onclick="onUploadButtonClicked()" class="upload-image">
+        <img src="upload.svg" alt="upload">
+    </button>
+    <div class="content">
+        <img class="image" src="image.bmp" alt="ERROR BCS CANT READ IMAGE">
+        <div class="center">
+            <div class="panel">
+                <button class="rot ate-image btn" onclick="ipcRenderer.sendSync('turnLeft'); location.reload()"><img src="rotate-ccw.svg"></button>
+                <button class="rotate-image btn" onclick="ipcRenderer.sendSync('turnRight'); location.reload()"><img src="rotate-cw.svg"></button>
+                <button class="btn" onclick="ipcRenderer.sendSync('toGray'); location.reload()">Серенький</button>
+                <button class="btn" onclick="ipcRenderer.sendSync('flipVertical'); location.reload()">Вертикальный укур</button>
+                <button class="btn" onclick="ipcRenderer.sendSync('flipHorizontal'); location.reload()">Горизонтальный укур</button>
+            </div>
+        </div>
     </div>
-    </div>
-
-    <div class="button">
-        <a>
-            <label class="d123">
-                <button style="display: none" onclick="ipcRenderer.sendSync('upload'); location.reload()"></button>
-                Загрузить
-            </label>
-            <a href="image.bmp" download="image.bmp" ><button class="d123">Save</button></a>
-        </a>
+    <div class="ranges" style="display: none">
+        <div class="field">
+            <input type="range" min="0" max="100" step="1" value="0"> 
+            <strong class="color-name" style="color: red;">Red</strong>
+        </div>
+        <div class="field">
+            <input type="range" min="0" max="100" step="1" value="0"> 
+            <strong class="color-name" style="color: green;">Green</strong>
+        </div>
+        <div class="field">
+            <input type="range" min="0" max="100" step="1" value="0"> 
+            <strong class="color-name" style="color: blue">Blue</strong>
+        </div>
     </div>
 </body>
+
+<script>
+    const { ipcRenderer } = require('electron');
+    function onUploadButtonClicked() {
+        ipcRenderer.sendSync('upload'); 
+        document.getElementsByClassName('content')[0].style.display = 'flex';
+        setTimeout(() => {
+            let container = document.getElementsByClassName('image')[0];
+            let content = container.innerHTML;
+            container.innerHTML= content;
+        }, 200)
+        //location.reload(); 
+    }
+</script>
